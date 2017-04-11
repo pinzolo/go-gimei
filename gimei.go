@@ -88,7 +88,7 @@ type Name struct {
 }
 
 func loadNames() {
-	rp := "src/github.com/mattn/go-gimei/data/names.yml"
+	rp := "src/github.com/pinzolo/go-gimei/data/names.yml"
 	for _, p := range filepath.SplitList(os.Getenv("GOPATH")) {
 		f := filepath.Join(p, rp)
 		if _, err := os.Stat(f); err == nil {
@@ -322,7 +322,7 @@ type Address struct {
 }
 
 func loadAddresses() {
-	rp := "src/github.com/mattn/go-gimei/data/addresses.yml"
+	rp := "src/github.com/pinzolo/go-gimei/data/addresses.yml"
 	for _, p := range filepath.SplitList(os.Getenv("GOPATH")) {
 		f := filepath.Join(p, rp)
 		if _, err := os.Stat(f); err == nil {
@@ -333,7 +333,7 @@ func loadAddresses() {
 			}
 		}
 	}
-	panic("failed to load names data")
+	panic("failed to load addresses data")
 }
 
 // String implement Stringer.
