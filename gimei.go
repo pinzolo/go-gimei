@@ -170,6 +170,9 @@ func NewNameByLastName(ln string) (*Name, error) {
 
 // NewFemaleByLastName return new female name having given last name.
 func NewFemaleByLastName(ln string) (*Name, error) {
+	if ln == "" {
+		return nil, fmt.Errorf("empty last name")
+	}
 	onceName.Do(loadNames)
 	fr := []rune(ln)[0]
 	if unicode.In(fr, unicode.Hiragana) {
@@ -211,6 +214,9 @@ func NewFemaleByLastName(ln string) (*Name, error) {
 
 // NewMaleByLastName return new male name having given last name.
 func NewMaleByLastName(ln string) (*Name, error) {
+	if ln == "" {
+		return nil, fmt.Errorf("empty last name")
+	}
 	onceName.Do(loadNames)
 	fr := []rune(ln)[0]
 	if unicode.In(fr, unicode.Hiragana) {

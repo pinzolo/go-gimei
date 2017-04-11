@@ -2,6 +2,12 @@ package gimei
 
 import "testing"
 
+func TestNewNameByLastNameEmpty(t *testing.T) {
+	if _, err := NewNameByLastName(""); err == nil {
+		t.Error("NewNameByLastName should raise error when given empty last name.")
+	}
+}
+
 func TestNewNameByLastName(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		name, err := NewNameByLastName("田中")
@@ -35,6 +41,12 @@ func TestNewNameByLastNameKataakana(t *testing.T) {
 		if name.Last.Kanji() != "田中" {
 			t.Error("cannot create by last name")
 		}
+	}
+}
+
+func TestNewMaleByLastNameEmpty(t *testing.T) {
+	if _, err := NewMaleByLastName(""); err == nil {
+		t.Error("NewNameByLastName should raise error when given empty last name.")
 	}
 }
 
@@ -80,6 +92,12 @@ func TestNewMaleByLastNameKataakana(t *testing.T) {
 		if name.Last.Kanji() != "田中" {
 			t.Error("cannot create by last name")
 		}
+	}
+}
+
+func TestNewFemaleByLastNameEmpty(t *testing.T) {
+	if _, err := NewFemaleByLastName(""); err == nil {
+		t.Error("NewNameByLastName should raise error when given empty last name.")
 	}
 }
 
