@@ -1,6 +1,7 @@
 package gimei
 
 import (
+	"fmt"
 	"io/ioutil"
 	"math/rand"
 	"os"
@@ -8,6 +9,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
 
 	"gopkg.in/yaml.v2"
 )
@@ -156,6 +158,96 @@ func NewFemale() *Name {
 		Last:  names.LastName[r.Int()%len(names.LastName)],
 		Sex:   Female,
 	}
+}
+
+// NewNameByLastName return new name having given last name.
+func NewNameByLastName(ln string) (*Name, error) {
+	if rand.Int()%2 == 0 {
+		return NewMaleByLastName(ln)
+	}
+	return NewFemaleByLastName(ln)
+}
+
+// NewFemaleByLastName return new female name having given last name.
+func NewFemaleByLastName(ln string) (*Name, error) {
+	onceName.Do(loadNames)
+	fr := []rune(ln)[0]
+	if unicode.In(fr, unicode.Hiragana) {
+		for _, last := range names.LastName {
+			if last.Hiragana() != ln {
+				continue
+			}
+			return &Name{
+				First: names.FirstName.Male[r.Int()%len(names.FirstName.Male)],
+				Last:  last,
+				Sex:   Female,
+			}, nil
+		}
+	} else if unicode.In(fr, unicode.Katakana) {
+		for _, last := range names.LastName {
+			if last.Katakana() != ln {
+				continue
+			}
+			return &Name{
+				First: names.FirstName.Male[r.Int()%len(names.FirstName.Male)],
+				Last:  last,
+				Sex:   Female,
+			}, nil
+		}
+	}
+
+	for _, last := range names.LastName {
+		if last.Kanji() != ln {
+			continue
+		}
+		return &Name{
+			First: names.FirstName.Male[r.Int()%len(names.FirstName.Male)],
+			Last:  last,
+			Sex:   Female,
+		}, nil
+	}
+	return nil, fmt.Errorf("not found: %s", ln)
+}
+
+// NewMaleByLastName return new male name having given last name.
+func NewMaleByLastName(ln string) (*Name, error) {
+	onceName.Do(loadNames)
+	fr := []rune(ln)[0]
+	if unicode.In(fr, unicode.Hiragana) {
+		for _, last := range names.LastName {
+			if last.Hiragana() != ln {
+				continue
+			}
+			return &Name{
+				First: names.FirstName.Male[r.Int()%len(names.FirstName.Male)],
+				Last:  last,
+				Sex:   Male,
+			}, nil
+		}
+	} else if unicode.In(fr, unicode.Katakana) {
+		for _, last := range names.LastName {
+			if last.Katakana() != ln {
+				continue
+			}
+			return &Name{
+				First: names.FirstName.Male[r.Int()%len(names.FirstName.Male)],
+				Last:  last,
+				Sex:   Male,
+			}, nil
+		}
+	}
+
+	for _, last := range names.LastName {
+		if last.Kanji() != ln {
+			continue
+		}
+		return &Name{
+			First: names.FirstName.Male[r.Int()%len(names.FirstName.Male)],
+			Last:  last,
+			Sex:   Male,
+		}, nil
+	}
+	return nil, fmt.Errorf("not found: %s", ln)
 }
 
 func findNameByIndex(n string, i int) *Name {
