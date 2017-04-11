@@ -43,7 +43,7 @@ func (i Item) Hiragana() string {
 	return i[1]
 }
 
-// Hiragana return string of Item as katakana.
+// Katakana return string of Item as katakana.
 func (i Item) Katakana() string {
 	return i[2]
 }
@@ -63,8 +63,10 @@ func (s Sex) String() string {
 }
 
 const (
-	Male   Sex = iota // 男
-	Female            // 女
+	// Male is 男
+	Male Sex = iota
+	// Female is 女
+	Female
 )
 
 // name store data sturecture just same as names.yml.
@@ -113,7 +115,7 @@ func (n *Name) Hiragana() string {
 	return n.Last.Hiragana() + " " + n.First.Hiragana()
 }
 
-// Hiragana return string of Name as katakana.
+// Katakana return string of Name as katakana.
 func (n *Name) Katakana() string {
 	return n.Last.Katakana() + " " + n.First.Katakana()
 }
@@ -123,7 +125,7 @@ func (n *Name) IsMale() bool {
 	return n.Sex == Male
 }
 
-// IsMale return true if she is female.
+// IsFemale return true if she is female.
 func (n *Name) IsFemale() bool {
 	return n.Sex == Female
 }
@@ -132,9 +134,8 @@ func (n *Name) IsFemale() bool {
 func NewName() *Name {
 	if rand.Int()%2 == 0 {
 		return NewMale()
-	} else {
-		return NewFemale()
 	}
+	return NewFemale()
 }
 
 // NewMale return new instance of person that is male.
@@ -201,7 +202,7 @@ func FindNameByHiragana(hiragana string) *Name {
 	return findNameByIndex(hiragana, 1)
 }
 
-// FindNameByKanji find Name from katakana.
+// FindNameByKatakana find Name from katakana.
 func FindNameByKatakana(katakana string) *Name {
 	return findNameByIndex(katakana, 2)
 }
@@ -252,7 +253,7 @@ func (a *Address) Hiragana() string {
 	return a.Prefecture.Hiragana() + a.City.Hiragana() + a.Town.Hiragana()
 }
 
-// Hiragana return string of Address as katakana.
+// Katakana return string of Address as katakana.
 func (a *Address) Katakana() string {
 	return a.Prefecture.Katakana() + a.City.Katakana() + a.Town.Katakana()
 }
@@ -319,7 +320,7 @@ func FindAddressByHiragana(hiragana string) *Address {
 	return findAddressByIndex(hiragana, 1)
 }
 
-// FindAddressByKanji find Address from katakana.
+// FindAddressByKatakana find Address from katakana.
 func FindAddressByKatakana(katakana string) *Address {
 	return findAddressByIndex(katakana, 2)
 }
