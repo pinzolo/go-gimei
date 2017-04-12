@@ -1,6 +1,7 @@
 # go-gimei
 
-golang port of [gimei](https://github.com/willnet/gimei)
+forked from [mattn/go\-gimei](https://github.com/mattn/go-gimei).  
+This is golang port of [gimei](https://github.com/willnet/gimei)
 
 ## Usage
 
@@ -62,7 +63,7 @@ golang
 ## Installation
 
 ```
-$ go get github.com/mattn/go-gimei
+$ go get github.com/pinzolo/go-gimei
 ```
 
 ## License
@@ -71,4 +72,4 @@ MIT
 
 ## Author
 
-Yasuhiro Matsumoto (a.k.a mattn)
+[pinzolo](https://github.com/pinzolo)
